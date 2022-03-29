@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class SudokuSolver {
 
     private static final int GRID_SIZE = 9;
@@ -52,6 +54,22 @@ public class SudokuSolver {
         return !isNumberInRow(board, number, row) &&
                 !isNumberInColumn(board, number, column) &&
                 !isNumberInBox(board, number, row, column);
+    }
+
+    private static boolean solveBoard(int[][] board){
+        for (int row = 0; row < GRID_SIZE; row++){
+            for (int column = 0; row < GRID_SIZE; column++){
+                if (board[row][column] == 0) {
+                    for(int numberToTry = 1; numberToTry <= GRID_SIZE; numberToTry++){
+                        if (isValidPlacement(board, numberToTry, row, column)){
+                            board[row][column] = numberToTry;
+
+                            solveBoard(board);
+                        }
+                    }
+                }
+            }
+        }
     }
 
 
